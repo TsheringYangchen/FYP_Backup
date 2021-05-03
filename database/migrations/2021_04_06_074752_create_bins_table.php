@@ -18,8 +18,8 @@ class CreateBinsTable extends Migration
             $table->string('license_no');
             $table->string('license_name');
             $table->string('cid');
-            $table->date('violation_date');
             $table->text('image'); 
+            $table->timestamps();
         });
     }
 

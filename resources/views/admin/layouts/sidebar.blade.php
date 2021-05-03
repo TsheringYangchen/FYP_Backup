@@ -37,6 +37,12 @@
                     <p>View BIN/EIN Providers</p>
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/admin/report') }}">
+                    <i class="ti-file"></i>
+                    <p>Upload Reports</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

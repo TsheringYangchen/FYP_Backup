@@ -8,7 +8,7 @@
   {{ csrf_field() }}
   <div class="input-group">
       
-      <input type="text" class="form-control mr-2 border-input" name="q" placeholder="Search License Holders">
+      <input type="text" class="form-control mr-2 border-input" name="q" placeholder="Search by License number or name">
         <span class="input-group-btn mr-1">
           <button class="btn btn-info" type="submit">
               <span class="fa fa-search mt-2"></span>

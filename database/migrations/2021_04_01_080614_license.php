@@ -17,7 +17,7 @@ class License extends Migration
             $table->bigIncrements('id');
             $table->string('license_no')->unique();
             $table->string('license_name');
-            $table->string('cid');
+            $table->string('cid')->unique();
             $table->string('estd_name');
             $table->string('phone');
             $table->string('location');

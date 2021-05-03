@@ -27,12 +27,12 @@ class IssuerController extends Controller
     
         $request->validate([
             'provider_name' => 'required',
-            'cid' => 'required',
+            'cid' => 'required|digits:11|numeric',
             'designation' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|digits:8|numeric',
             'email' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required',
+            'password' => 'min:5',
+            'confirm_password' => 'required_with:password|same:password|min:5'
         ]);
         // Save the data
         $issuer = Issuer::create([
@@ -48,40 +48,8 @@ class IssuerController extends Controller
           // Redirect to
           return redirect('/admin/issuers/create')->with('msg', 'BIN/EIN Providers has been created');
       }
-      public function store(Request $request)
-      {
-  
-          // Validate the user
-          $request->validate([
-              'provider_name' => 'required',
-              'cid' => 'required',
-              'designation' => 'required',
-              'phone' => 'required',
-              'email' => 'required|email',
-              'password' => 'required|confirmed',
-              'confirm_password' => 'required',
-          ]);
-  
-          // Save the data
-          $issuer = Issuer::create([
-              'provider_name' => $request ->provider_name,
-              'cid' => $request->cid,
-              'designation' => $request->designation,
-              'phone' => $request->phone,
-              'email' => $request->email,
-              'password' => bcrypt($request->password),
-              'confirm_password' => bcrypt($request->confirm_password),
-          ]);
-  
-          // Sign the Providers in
-          auth()->login($issuer);
-  
-          $request->session()->flash('msg', 'Your providers has been added');
-  
-          // Redirect to
-          return view('/admin/issuers/create');
-      }
-
+     
+   
       public function viewIssuer()
       {
           $issuer=Issuer::paginate(3);     
@@ -102,12 +70,33 @@ class IssuerController extends Controller
           return redirect('/admin/viewIssuer')->with('msg','No results found');
   
       }
+      public function editIssuer($id)    
+      {
+          $issuer = Issuer::find($id);
+         // return view('admin.issuers.issuer-edit',compact('issuer'));
+         return view('admin.issuers.issuer-edit')->with('issuer',$issuer);
+      }
+
+      public function update(Request $request, $id)
+      {
+        $issuer = Issuer::find($id);
+
+            $issuer->provider_name=$request->input('provider_name');
+            $issuer->cid=$request->input('cid');
+            $issuer->designation=$request->input('designation');
+            $issuer->phone=$request->input('phone');
+            $issuer->email=$request->input('email');
+            $issuer->password=$request->input('password');
+            $issuer->confirm_password=$request->input('confirm_password');
+
+        $issuer->save();
+         
+        return redirect('admin/viewIssuer')->with('issuer',$issuer);
+      }
 
       public function  deleteIssuer($id){
         $issuers = Issuer::findOrFail($id);  
         $issuers->delete();
         return redirect('/admin/viewIssuer');
     }
-
-
 }

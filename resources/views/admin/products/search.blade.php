@@ -47,7 +47,7 @@
             <img src="{{ url('uploads').'/'.$license->image}}" alt="{{ $license->image }}" class="mx-auto d-block img-thumbnail" style="width: 120px; height : 100px">
           </td>
           <td class="text-center">
-            <a href="license-edit/{{$license->id}}" class="btn btn-primary mt-4">EDIT</a>
+            <a href="/admin/edit/{{$license->id}}" class="btn btn-primary mt-4">EDIT</a>
           </td>
           <td>  
             <a href="/deleteLH/{{$license->id}}" class="btn btn-danger mt-4" onclick="return confirm('Are you sure you want to delete?')">DELETE</a>

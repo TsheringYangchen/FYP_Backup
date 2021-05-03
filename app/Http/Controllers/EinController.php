@@ -54,7 +54,7 @@ class EinController extends Controller
 
     public function viewein()
     {
-        $issuer=Ein::paginate(3);     
+        $issuer=Ein::paginate(10);     
           return view('admin.viewein',['issuers'=>$issuer]);
     }
     

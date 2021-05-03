@@ -8,7 +8,7 @@
 
 <div class="row">
 
-    <div class="col-md-12" id="register">
+    <div class="col-md-12">
 
         <div class="card col-md-8">
             <div class="card-body">
@@ -50,15 +50,16 @@
                     </div>
                     <div class="form-group">
                         <label for="license"><b>Location</b></label>
-                        <input type="text" name="location" placeholder="Location" id="location" class="form-control">
+                        <input type="text" name="location" placeholder="Current location of your business" id="location" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="license_type"><b>Select License Type</b></label><br>
                         <select name="license_type">
                             <option value="Bar License" name="license_type">
-                            Bar License
+                                 Bar License
                             </option>
                             <option value="Entertainment License" name="license_type">
-                            Entertainment License
+                                Entertainment License
                             </option>
                         </select>
                     </div>
@@ -66,9 +67,9 @@
                     <label for="license"><b>Image</b></label>
                         <input type="file" name="image" class="form-control">
                     </div>
-
-                    <div class="form-group mb-5">
-                        <button class="btn btn-outline-info col-md-2" style="margin-bottom: 20px"><b>Register</b></button>
+                    <br>
+                    <div class="form-group">
+                        <button class="btn btn-success"><b>Register</b></button>
                     </div>
 
                 </form>

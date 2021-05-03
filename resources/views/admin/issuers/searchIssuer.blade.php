@@ -42,7 +42,7 @@
           <td>{{ $issuer->phone }}</td>
           <td>{{ $issuer->email }}</td>
           <td class="text-center">
-            <a href="#" class="btn btn-primary">EDIT</a>
+            <a href="admin/search-edit/{{$issuer->id}}" class="btn btn-primary">EDIT</a>
           </td>
           <td>  
             <a href="/deleteIR/{{$issuer->id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">DELETE</a>

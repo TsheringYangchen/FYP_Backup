@@ -50,7 +50,7 @@
 							<input id="phone" type="text" class="form-control " name="phone"> 
 						</div>
 					
-					<div class="form-group">
+                        <div class="form-group">
 						<label><b>Email Address:</b></label>
 							<input id="email" type="email" class="form-control " name="email">
 						 </div>
@@ -64,12 +64,8 @@
 						<label><b>Confirm Password</b></label>
 							<input id="confirm_password" type="password" class="form-control" name="confirm_password"> 
 						</div>
-                    <!--div class="form-group">
-                        <input type="file" name="image" class="form-control">
-                    </div-->
-
-                    <div class="form-group mb-5">
-                        <button class="btn btn-outline-info col-md-2" style="margin-bottom: 20px"><b>Register</b></button>
+                    <div class="form-group">
+                        <button class="btn btn-success"><b>Register</b></button>
                     </div>
 
                 </form>

@@ -19,7 +19,11 @@
   </div>
 </form>
 <br>
-
+  <div class="col-md-5 form-group">
+      <button class="btn btn-info w-50">
+        <a href="{{ url('admin/viewbin/pdf') }}">Generate Report</a>
+      </button>  
+  </div>
 <div class="row">
   <div class="col-md-8 offset-2">
     <table class="table table-responsive table-bordered">
@@ -32,7 +36,6 @@
         <th scope="col">CID No</th>
         <th scope="col">Violation Date</th>
         <th scope="col">Evidence</th>
-      </tr>
       </tr>
     </thead>
     @include('admin.layouts.message')
@@ -51,7 +54,7 @@
     </tbody>
   </table>
 
-  {{$issuers->links() }}
+  {{ $issuers->links() }}
 </div>
 
 </div>

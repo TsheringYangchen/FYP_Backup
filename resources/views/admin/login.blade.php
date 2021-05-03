@@ -73,11 +73,7 @@
                                 <input type="password" name="password" id="password" placeholder="Password"
                                        class="form-control border-input">
                             </div>
-                            <div class="col-6">
-                                <a href="">
-                                   Forgot Password?
-                                </a>
-                            </div><br>
+                            <br>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Sign In</button>
                             </div>

@@ -8,6 +8,8 @@
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
     {{ Html::style('assets/css/bootstrap.min.css') }}
 
@@ -45,7 +47,7 @@
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-settings"></i>
-                    
+                            
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -68,5 +70,6 @@
 {{ Html::script('assets/js/jquery-1.10.2.js') }}
 {{ Html::script('assets/js/bootstrap.min.js') }}
 {{ Html::script('assets/js/script.js') }}
+
 
 </html>

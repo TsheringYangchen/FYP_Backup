@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\User;
 use Redirect;
+use DB;
+use App\Bin;
 use App\License;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -102,21 +104,31 @@ class RegistrationController extends Controller
     
     public function editLicense($id)    
     {
-        $licenses = License::find($id);
-        return view('admin.products.license-edit');
+        $license = License::find($id);
+        return view('admin.products.license-edit',compact('license'));
     }
-    public function updateLicense(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        // Validation
-        $this->validate($request,[
-            'LHname' =>'required',
-            'license' =>'required'
-        ]);
-        $licenses = License::find($id);
-        $licenses->LHname=$request->get('LHname');
-        $licenses->license=$request->get('license');
-        $licenses->save();
-        return redirect()->route('admin.viewLicense')->with('msg','You have successfully updated License Holder');
+        $license = License::find($id);
+
+        $license->license_name=$request->input('license_name');
+        $license->license_no=$request->input('license_no');
+        $license->cid=$request->input('cid');
+        $license->phone=$request->input('phone');
+        $license->location=$request->input('location');
+        $license->license_type=$request->input('license_type'); 
+       
+        if ($request->hasfile('image'))
+         {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads', $filename);
+            $license->image = $filename;
+            }
+
+        $license->save();
+        return redirect('admin/viewLicense')->with('license',$license);
     }
 
     public function  deleteLicense($id){
@@ -127,21 +139,22 @@ class RegistrationController extends Controller
 
     public function Holder(Request $request){
 
-        $request -> validate([
-            
-            'no'=>'required'
-        ]);   
+        $request ->validate([
+            'no'=>'required',
 
-    if ($holder = License::where('license_no','=', Input::get('no'))->first())
-    {
-        return redirect::route('status');
-    }
-    
+        ]);
+        if($no=License::where('license_no','=',Input::get('no'))->first())
+        {
+            $status = License::where('license_no','=',Input::get('no'))->get();
+            return view ('front.License-Status',compact('status'));
+        }
+  
     else
     {
          // Session message
         return back()->with('msg','You have entered wrong License No');
     }
-    }
+}
+   
     
 }

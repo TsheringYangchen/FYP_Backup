@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\Bin;
 use DB;
+use PDF;
+use App\Issuer;
+use App\License;
 
 class BinController extends Controller
 {
@@ -54,7 +57,48 @@ class BinController extends Controller
 
     public function viewbin()
     {
-        $issuer=Bin::paginate(3);     
+        $issuer = Bin::paginate(10);     
           return view('admin.viewbin',['issuers'=>$issuer]);
     }
+
+    public function pdf()
+    {
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_issuers_to_html());
+        return $pdf->stream();  
+    }
+
+    public function convert_issuers_to_html()
+    {
+        $issuers = $this->viewbin();
+        $output = '
+            <h3>Summary of the Infringement</h3>
+            <table class="table table-responsive table-bordered">
+            <thead class="table-dark text-center">
+            <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">License No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">CID No</th>
+                    <th scope="col">Violation Date</th>
+                
+            </tr>
+        ';
+        foreach ($issuers as $issuer)
+        {
+            $output .='
+            <tr>
+                <td>{{ $issuer->id}}</td>
+                <td>{{ $issuer->license_no}}</td>
+                <td>{{ $issuer->license_name}}</td>
+                <td>{{ $issuer->cid}}</td>
+                <td>{{ $issuer->violation_date}}</td>
+            </tr>
+            ';
+        }
+        $output .= '</table>';
+        return $output;
+    }
+
+
 }

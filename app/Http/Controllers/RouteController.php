@@ -28,4 +28,13 @@ class RouteController extends Controller
     public function status(){
         return view('front.License-Status');
     }
+    public function changepw(){
+        return view('front.change-password');
+    }
+    public function notify(){
+        return view('front.notification');
+    }
+    public function rule(){
+        return view('front.rules');
+    }
 }

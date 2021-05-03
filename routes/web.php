@@ -24,40 +24,61 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'AdminUserController@index');
     Route::post('/login', 'AdminUserController@store');
 });
-
 //admin routes
-
-Route::post('/provider/register','IssuerController@provide')->name('issuer');
-Route::get('/deleteIR/{id}','IssuerController@deleteIssuer');
-Route::get('/searchIR', 'IssuerController@find');
 
 /*
  * Front Routes
  */
     Route::get('/', 'Front\HomeController@index');
-    Route::get('admin/viewLicense', 'Front\RegistrationController@viewLicense');
+    Route::get('admin/viewLicense', 'Front\RegistrationController@viewLicense')->middleware('auth:admin');
     Route::get('/search', 'Front\RegistrationController@search');
-    Route::get('admin/viewIssuer', 'IssuerController@viewIssuer');
-    Route::get('admin/issuers/create', 'IssuerController@index');
-
+    
     //BIN/EIN
     Route::post('/getbin','BinController@store');
     Route::post('/getein','EinController@store');
-    Route::get('admin/viewbin', 'BinController@viewbin');
-    Route::get('admin/viewein', 'EinController@viewein');
+    Route::get('admin/viewbin', 'BinController@viewbin')->middleware('auth:admin');
+    Route::get('admin/viewein', 'EinController@viewein')->middleware('auth:admin');
+    
+   
+    Route::get('admin/viewbin/pdf','BinController@pdf')->name('pdf');
+
     Route::get('/searchbin', 'BinController@search');
     Route::get('/searchein', 'EinController@search');
 
-    Route::get('admin/license-edit/{id}','Front\RegistrationController@editLicense');
-    Route::put('updateLicense/{id}','Front\RegistrationController@updateLicense');
+    //License Edit and update
+    Route::get('admin/license-edit/{id}','Front\RegistrationController@editLicense')->middleware('auth:admin');
+    Route::put('/licenseupdate/{id}','Front\RegistrationController@update');
+
+    //Search License Edit and Update
+    Route::get('admin/edit/{id}','Front\RegistrationController@editLicense');
+    Route::put('/update/{id}','Front\RegistrationController@update');
+
     Route::get('/deleteLH/{id}','Front\RegistrationController@deleteLicense');
     Route::post('front/licensee-login','Front\RegistrationController@Holder');
 
-    // User Registration //License Holders //Providers
+    //Providers Login Try
+    //Route::post('/issuer/login','IssuerController@Provider');
+
+    Route::post('/provider/register','IssuerController@provide')->name('issuer')->middleware('auth:admin');
+    Route::get('/deleteIR/{id}','IssuerController@deleteIssuer');
+    Route::get('/searchIR', 'IssuerController@find');
+
+    Route::get('admin/viewIssuer', 'IssuerController@viewIssuer')->middleware('auth:admin');
+    Route::get('admin/issuers/create', 'IssuerController@index')->middleware('auth:admin');
+
+    //Edit and update Issuers
+    Route::get('admin/issuer-edit/{id}','IssuerController@editIssuer')->middleware('auth:admin');
+    Route::put('/updateissuer/{id}','IssuerController@update');
+
+    //Search Issuers Edit and Update
+    Route::get('admin/search-edit/{id}','IssuerController@editIssuer')->middleware('auth:admin');
+    Route::put('/updateprovider/{id}','IssuerController@update');
+
+    // User Registration
     //Route::get('/user/register','Front\RegistrationController@index');
     //Route::post('/user/register','Front\RegistrationController@store');
     
-    Route::post('/license/register','Front\RegistrationController@license');
+    Route::post('/license/register','Front\RegistrationController@license')->middleware('auth:admin');
 
     // User Login
         Route::get('/user/login','Front\SessionsController@index');
@@ -73,9 +94,12 @@ Route::get('/searchIR', 'IssuerController@find');
         Route::get('/licensee-login','RouteController@licensee');
         Route::get('/bin','RouteController@bin');
         Route::get('/ein','RouteController@ein')->name('ein');
-        Route::get('/infringement','RouteController@infringement');
+        Route::get('/infringement','RouteController@infringement')->name('infringe');
         Route::get('/License-Status','RouteController@status')->name('status');
-        
+        Route::get('/changepw','RouteController@changepw');
+        Route::get('/notification','RouteController@notify');
+        Route::get('/rules','RouteController@rule');
+       
 
         
 
